@@ -1,16 +1,17 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
 const app = express();
 
-// Escoin Token values
-const totalSupply = 219408422;
-const circulatingSupply = 150591578;
+const supply = JSON.parse(fs.readFileSync(path.join(__dirname, 'supply.json')));
 
 app.get('/api/v1/supply', (req, res) => {
-  res.send(String(totalSupply));
+  res.send(String(supply.total));
 });
 
 app.get('/api/v1/circulation', (req, res) => {
-  res.send(String(circulatingSupply));
+  res.send(String(supply.circulating));
 });
 
 module.exports = app;
